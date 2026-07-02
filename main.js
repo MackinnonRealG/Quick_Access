@@ -64,7 +64,7 @@ function createWindow() {
     minWidth: 280,
     minHeight: 300,
     alwaysOnTop: true,
-    title: 'Quick Overview',
+    title: 'Quick_Access',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,

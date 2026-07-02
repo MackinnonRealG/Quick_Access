@@ -1,5 +1,5 @@
 {
-  "name": "quick-overview",
+  "name": "quick-access",
   "version": "1.0.0",
   "description": "Always-on-top dashboard that lists all your projects and opens the live running page with one click",
   "main": "main.js",
