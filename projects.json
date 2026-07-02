@@ -1,0 +1,10 @@
+{
+  "projects": [
+    {
+      "name": "Example Project (edit me)",
+      "url": "http://localhost:3000",
+      "path": "/Users/connorsandford/Desktop/example-project",
+      "command": "npm run dev"
+    }
+  ]
+}

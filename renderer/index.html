@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'" />
+  <title>Quick Overview</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="titlebar">
+    <span class="app-title">Quick Overview</span>
+    <div class="titlebar-actions">
+      <button id="pin-btn" class="icon-btn pinned" title="Toggle always on top">&#128204;</button>
+      <button id="add-btn" class="icon-btn" title="Add a project">+</button>
+    </div>
+  </header>
+
+  <main id="project-list" class="project-list"></main>
+
+  <div id="empty-state" class="empty-state hidden">
+    <p>No projects yet.</p>
+    <p>Click <strong>+</strong> above, or edit <code>projects.json</code> in this folder.</p>
+  </div>
+
+  <!-- Add-project form (hidden until + is clicked) -->
+  <div id="add-form" class="add-form hidden">
+    <h3>Add a project</h3>
+    <input id="f-name" placeholder="Project name (e.g. My Shop)" />
+    <input id="f-url" placeholder="URL (e.g. http://localhost:3000)" />
+    <input id="f-path" placeholder="Folder path (optional, for auto-start)" />
+    <input id="f-command" placeholder="Start command (optional, e.g. npm run dev)" />
+    <div class="form-actions">
+      <button id="f-cancel" class="btn secondary">Cancel</button>
+      <button id="f-save" class="btn primary">Save</button>
+    </div>
+  </div>
+
+  <footer class="statusbar"><span id="status-text"></span></footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "quick-overview",
+  "version": "1.0.0",
+  "description": "Always-on-top dashboard that lists all your projects and opens the live running page with one click",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^33.0.0"
+  }
+}
