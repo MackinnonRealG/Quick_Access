@@ -1,22 +1,34 @@
-# Quick Overview
+# Quick_Access
 
-A small always-on-top window that lists all your projects, shows which ones are
-currently running, and opens the live page in your browser with one click.
+A small always-on-top desktop widget (macOS) that lists all your local
+projects, shows which ones are currently running, and opens the live page in
+your browser with one click. Built with Electron.
 
-## Run it
+## Features
+
+- 📌 **Always on top** — floats above other windows (toggle with the pin button)
+- ↔️ **Fully resizable & draggable** — remembers its size and position
+- 🟢 **Live status dots** — green = running, grey = stopped, orange = starting
+  (each project's URL is pinged every 5 seconds)
+- 🖱️ **One-click open** — click a running project and its live page opens in
+  your default browser; close the tab anytime, the project keeps running
+- ▶️ **Auto-start** — click a *stopped* project and Quick_Access runs its start
+  command, waits until the page responds, then opens it
+- ➕ **Easy to add projects** — via the + button or by editing `projects.json`
+  (hot-reloaded on save)
+
+## Getting started
 
 ```bash
-cd "/Users/connorsandford/Desktop/Quick_ Overvie"
-npm install     # first time only
+git clone https://github.com/MackinnonRealG/Quick_Access.git
+cd Quick_Access
+npm install
 npm start
 ```
 
-## Add a project
+## Adding your projects
 
-Two ways:
-
-1. Click the **+** button in the app and fill in the form.
-2. Edit `projects.json` directly — the app reloads it automatically:
+Click **+** in the app, or edit `projects.json`:
 
 ```json
 {
@@ -24,30 +36,34 @@ Two ways:
     {
       "name": "My Shop",
       "url": "http://localhost:3000",
-      "path": "/Users/connorsandford/Projects/my-shop",
+      "path": "/Users/you/Projects/my-shop",
       "command": "npm run dev"
     }
   ]
 }
 ```
 
-- `name` and `url` are required.
-- `path` + `command` are optional — with them, clicking a **stopped** project
-  starts it automatically and opens the page once it's up.
+| Field     | Required | Purpose                                              |
+| --------- | -------- | ---------------------------------------------------- |
+| `name`    | yes      | Display name on the card                             |
+| `url`     | yes      | Where the project runs, e.g. `http://localhost:5173` |
+| `path`    | no       | Project folder — enables auto-start & "folder" button |
+| `command` | no       | Start command run inside `path`, e.g. `npm run dev`  |
 
 ## How it works
 
-- **Green dot** = the URL responds (project is running). Click the card to open
-  it in your browser. Close the browser tab whenever you like — the project
-  keeps running.
-- **Grey dot** = nothing is listening on that URL. Clicking runs the project's
-  `command` in its `path`, waits until the URL responds, then opens it.
-- **Orange pulsing dot** = starting up.
-- **📌 pin button** toggles always-on-top.
-- **stop** only appears for projects that were started from this app.
-- The window remembers its size and position between launches.
+- **Status check:** any HTTP response from the URL (even a 404) counts as
+  "running" — only a refused connection or timeout counts as "stopped".
+- **Stop button:** appears on running projects, but can only stop dev servers
+  that were started *from* Quick_Access (it doesn't touch servers you started
+  in your own terminal).
+- **Remove (×):** removes a project from the list only — never deletes files.
 
-## Start automatically at login (optional)
+## Project structure
 
-System Settings → General → Login Items → **+** → add a small launcher, or run
-`npm start` from this folder whenever you want the dashboard up.
+```
+main.js            Electron main process: window, health checks, start/stop
+preload.js         Secure bridge between the UI and the main process
+renderer/          The widget UI (HTML/CSS/JS)
+projects.json      Your project registry — the only file you need to edit
+```
